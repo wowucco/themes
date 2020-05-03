@@ -1,9 +1,9 @@
 package adminlte
 
 import (
-	adminTemplate "github.com/GoAdminGroup/go-admin/template"
-	"github.com/GoAdminGroup/go-admin/template/components"
-	"github.com/GoAdminGroup/go-admin/template/types"
+	adminTemplate "github.com/wowucco/go-admin/template"
+	"github.com/wowucco/go-admin/template/components"
+	"github.com/wowucco/go-admin/template/types"
 	"github.com/GoAdminGroup/themes/adminlte/resource"
 	"github.com/GoAdminGroup/themes/common"
 	"github.com/gobuffalo/packr/v2"

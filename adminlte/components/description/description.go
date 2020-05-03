@@ -3,8 +3,8 @@ package description
 import (
 	"bytes"
 	"fmt"
-	"github.com/GoAdminGroup/go-admin/modules/logger"
-	adminTemplate "github.com/GoAdminGroup/go-admin/template"
+	"github.com/wowucco/go-admin/modules/logger"
+	adminTemplate "github.com/wowucco/go-admin/template"
 	"github.com/GoAdminGroup/themes/adminlte/components"
 	"html/template"
 )

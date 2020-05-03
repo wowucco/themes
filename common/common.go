@@ -1,7 +1,7 @@
 package common
 
 import (
-	"github.com/GoAdminGroup/go-admin/modules/config"
+	"github.com/wowucco/go-admin/modules/config"
 	"html/template"
 )
 
