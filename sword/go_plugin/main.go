@@ -4,8 +4,8 @@ import (
 	"github.com/wowucco/go-admin/modules/language"
 	"github.com/wowucco/go-admin/template/components"
 	"github.com/wowucco/go-admin/template/types"
-	"github.com/GoAdminGroup/themes/sword"
-	"github.com/GoAdminGroup/themes/sword/resource"
+	"github.com/wowucco/themes/sword"
+	"github.com/wowucco/themes/sword/resource"
 	"html/template"
 	"strings"
 )
