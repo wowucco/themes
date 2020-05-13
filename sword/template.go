@@ -1654,7 +1654,8 @@ var TemplateList = map[string]string{"admin_panel": `{{define "admin_panel"}}
         {{end}}
     </div>
 </div>
-{{end}}`, "components/tree-header": `{{define "tree-header"}}
+{{end}}`,
+"components/tree-header": `{{define "tree-header"}}
 <div class="btn-group">
     <a class="btn btn-primary btn-sm tree-model-tree-tools" data-action="expand">
         <i class="fa fa-plus-square-o"></i>&nbsp;{{lang "expand"}}
@@ -1673,7 +1674,8 @@ var TemplateList = map[string]string{"admin_panel": `{{define "admin_panel"}}
 </div>
 <div class="btn-group">
 </div>
-{{end}}`, "components/tree": `{{define "tree"}}
+{{end}}`,
+"components/tree": `{{define "tree"}}
     <div class="dd" id="tree-model">
         {{$EditUrl := .EditUrl}}
         {{$UrlPrefix := .UrlPrefix}}
@@ -1840,7 +1842,185 @@ var TemplateList = map[string]string{"admin_panel": `{{define "admin_panel"}}
             $(".roles").select2({"allowClear": true, "placeholder": "Roles"});
         });
     </script>
-{{end}}`, "content": `{{define "content"}}
+{{end}}`,
+"components/nestedset-tree-header": `{{define "nestedset-tree-header"}}
+<div class="btn-group">
+    <a class="btn btn-primary btn-sm nestedset-tree-model-tree-tools" data-action="expand">
+        <i class="fa fa-plus-square-o"></i>&nbsp;{{lang "expand"}}
+    </a>
+    <a class="btn btn-primary btn-sm nestedset-tree-model-tree-tools" data-action="collapse">
+        <i class="fa fa-minus-square-o"></i>&nbsp;{{lang "collapse"}}
+    </a>
+</div>
+
+<div class="btn-group">
+    <a class="btn btn-info btn-sm  nestedset-tree-model-save"><i class="fa fa-save"></i>&nbsp;{{lang "save"}}</a>
+</div>
+
+<div class="btn-group">
+    <a class="btn btn-warning btn-sm nestedset-tree-model-refresh"><i class="fa fa-refresh"></i>&nbsp;{{lang "refresh"}}</a>
+</div>
+<div class="btn-group">
+</div>
+{{end}}`,
+"components/nestedset-tree": `{{define "nestedset-tree"}}
+    <div class="dd" id="nestedset-tree-model">
+        {{$EditUrl := .EditUrl}}
+        {{$UrlPrefix := .UrlPrefix}}
+        <ol class="dd-list">
+            {{range $key, $list := .Tree}}
+                <li class="dd-item" data-id='{{$list.ID}}'>
+                    <div class="dd-handle">
+                        {{if eq $list.Url ""}}
+                            <strong>{{$list.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                            <a href="{{$list.Url}}" class="dd-nodrag">{{$list.Url}}</a>
+                        {{else if eq $list.Url "/"}}
+                            <strong>{{$list.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                            <a href="{{$UrlPrefix}}" class="dd-nodrag">{{$UrlPrefix}}</a>
+                        {{else if (isLinkUrl $list.Url)}}
+                            <strong>{{$list.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                            <a href="{{$list.Url}}" class="dd-nodrag">{{$list.Url}}</a>
+                        {{else}}
+                            <strong>{{$list.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                            <a href="{{$UrlPrefix}}{{$list.Url}}" class="dd-nodrag">{{$UrlPrefix}}{{$list.Url}}</a>
+                        {{end}}
+                        <span class="pull-right dd-nodrag">
+                            <a href="{{$EditUrl}}?id={{$list.ID}}"><i class="fa fa-edit"></i></a>
+                            <a href="javascript:void(0);" data-id="{{$list.ID}}" class="tree_branch_delete"><i
+                                        class="fa fa-trash"></i></a>
+                        </span>
+                    </div>
+                    {{if gt (len $list.ChildrenList) 0}}
+                        <ol class="dd-list">
+                            {{range $key, $item := $list.ChildrenList}}
+                                <li class="dd-item" data-id='{{$item.ID}}'>
+                                    <div class="dd-handle">
+                                        {{if eq $item.Url ""}}
+                                            <strong>{{$item.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                                            <a href="{{$item.Url}}" class="dd-nodrag">{{$item.Url}}</a>
+                                        {{else if eq $item.Url "/"}}
+                                            <strong>{{$item.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                                            <a href="{{$UrlPrefix}}" class="dd-nodrag">{{$UrlPrefix}}</a>
+                                        {{else if (isLinkUrl $item.Url)}}
+                                            <strong>{{$item.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                                            <a href="{{$item.Url}}" class="dd-nodrag">{{$item.Url}}</a>
+                                        {{else}}
+                                            <strong>{{$item.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                                            <a href="{{$UrlPrefix}}{{$item.Url}}"
+                                                    class="dd-nodrag">{{$UrlPrefix}}{{$item.Url}}</a>
+                                        {{end}}
+                                        <span class="pull-right dd-nodrag">
+                                            <a href="{{$EditUrl}}?id={{$item.ID}}"><i class="fa fa-edit"></i></a>
+                                            <a href="javascript:void(0);" data-id="{{$item.ID}}"
+                                               class="tree_branch_delete"><i class="fa fa-trash"></i></a>
+                                        </span>
+                                    </div>
+                                    {{if gt (len $item.ChildrenList) 0}}
+                                        <ol class="dd-list">
+                                            {{range $key2, $subItem := $item.ChildrenList}}
+                                                <li class="dd-item" data-id='{{$subItem.ID}}'>
+                                                    <div class="dd-handle">
+                                                        {{if eq $subItem.Url ""}}
+                                                            <strong>{{$subItem.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                                                            <a href="{{$subItem.Url}}" class="dd-nodrag">{{$subItem.Url}}</a>
+                                                        {{else if eq $subItem.Url "/"}}
+                                                            <strong>{{$subItem.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                                                            <a href="{{$UrlPrefix}}" class="dd-nodrag">{{$UrlPrefix}}</a>
+                                                        {{else if (isLinkUrl $subItem.Url)}}
+                                                            <strong>{{$subItem.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                                                            <a href="{{$subItem.Url}}" class="dd-nodrag">{{$subItem.Url}}</a>
+                                                        {{else}}
+                                                            <strong>{{$subItem.Name}}</strong>&nbsp;&nbsp;&nbsp;
+                                                            <a href="{{$UrlPrefix}}{{$subItem.Url}}"
+                                                                    class="dd-nodrag">{{$UrlPrefix}}{{$subItem.Url}}</a>
+                                                        {{end}}
+                                                        <span class="pull-right dd-nodrag">
+                                                            <a href="{{$EditUrl}}?id={{$subItem.ID}}"><i
+                                                                        class="fa fa-edit"></i></a>
+                                                            <a href="javascript:void(0);" data-id="{{$subItem.ID}}"
+                                                               class="tree_branch_delete"><i
+                                                                        class="fa fa-trash"></i></a>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            {{end}}
+                                        </ol>
+                                    {{end}}
+                                </li>
+                            {{end}}
+                        </ol>
+                    {{end}}
+                </li>
+            {{end}}
+        </ol>
+    </div>
+    <script data-exec-on-popstate="">
+        $(function () {
+            $('#nestedset-tree-model').nestable([]);
+            $('.tree_branch_delete').click(function () {
+                let id = $(this).data('id');
+                swal({
+                        title: {{lang "are you sure to delete"}} +"?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: {{lang "confirm"}},
+                        closeOnConfirm: false,
+                        cancelButtonText: {{lang "cancel"}}
+                    },
+                    function () {
+                        $.ajax({
+                            method: 'post',
+                            url: {{.DeleteUrl}} +'?id=' + id,
+                            data: {},
+                            success: function (data) {
+                                $.pjax.reload('#pjax-container');
+                                if (data.code === 200) {
+                                    swal(data.msg, '', "success");
+                                } else {
+                                    swal(data.msg, '', "error");
+                                }
+                            },
+                            error: function (data) {
+                                if (data.responseText !== "") {
+                                    swal(data.responseJSON.msg, '', 'error');
+                                } else {
+                                    swal("{{lang "error"}}", '', 'error');
+                                }
+                            },
+                        });
+                    });
+            });
+            $('.nestedset-tree-model-save').click(function () {
+                let serialize = $('#nestedset-tree-model').nestable('serialize');
+                $.post({{.OrderUrl}}, {
+                        _order: JSON.stringify(serialize)
+                    },
+                    function (data) {
+                        $.pjax.reload('#pjax-container');
+                        toastr.success('Save succeeded !');
+                    });
+            });
+            $('.nestedset-tree-model-refresh').click(function () {
+                $.pjax.reload('#pjax-container');
+                toastr.success(toastMsg);
+            });
+            $('.nestedset-tree-model-tree-tools').on('click', function (e) {
+                let target = $(e.target),
+                    action = target.data('action');
+                if (action === 'expand') {
+                    $('.dd').nestable('expandAll');
+                }
+                if (action === 'collapse') {
+                    $('.dd').nestable('collapseAll');
+                }
+            });
+            $(".parent_id").select2({"allowClear": true, "placeholder": "Parent"});
+            $(".roles").select2({"allowClear": true, "placeholder": "Roles"});
+        });
+    </script>
+{{end}}`,
+"content": `{{define "content"}}
     <script>
         $('a.new-tab-link').on('click', function () {
             listenerForAddNavTab($(this).attr('href'), $(this).attr('data-title'))
