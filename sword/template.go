@@ -1885,7 +1885,7 @@ var TemplateList = map[string]string{"admin_panel": `{{define "admin_panel"}}
                             {{range $key, $item := $list.ChildrenList}}
                                 <li class="dd-item" data-id='{{$item.ID}}'>
                                     <div class="dd-handle">
-										<a href="{{$ViewUrl}}?id={{$list.ID}}" class="dd-nodrag"><strong>{{$item.Name}}</strong></a>
+										<a href="{{$ViewUrl}}?id={{$item.ID}}" class="dd-nodrag"><strong>{{$item.Name}}</strong></a>
                                         <span class="pull-right dd-nodrag">
                             				<a href="{{$ViewUrl}}?id={{$item.ID}}"><i class="fa fa-eye"></i></a>
                                             <a href="{{$EditUrl}}?id={{$item.ID}}"><i class="fa fa-edit"></i></a>
